@@ -1,0 +1,76 @@
+Atualmente o @totvs/protheus-lib-core@latest só vai ate a versão 17.
+INSTALAR VERSÃO 17 EM TODOS.
+
+Instalar Angular:
+npm i -g @angular/cli@17
+
+Criar Projeto:
+ng new my-protheus-app
+cd my-protheus-app
+
+Instalar componentes:
+ng add @po-ui/ng-components@17
+
+Instalar templates:
+ng add @po-ui/ng-templates@17
+
+Instalar dependência:
+npm i subsink
+
+Bilioteca que ajuda na integração com o Protheus. ex: autenticação
+npm i @totvs/protheus-lib-core@17
+
+Instalar o tema do Protheus:
+npm i @totvs/po-theme@17
+
+Subir e abrir o servidor:
+ng serve -o
+
+CONFIGURAR COMPILAÇÃO VSCODE:
+configurações -> extensões -> Totvs Language Server Launch: Args - abrir arquivo JSON
+Caso não tenha "totvsLanguageServer.folder.extensionsAllowed"
+Adicione e informe ".APP"
+
+Adicionar no arquivo do Angular.json:
+Procurar por styles e preencher nos dois lugares para usar os temas do protheus:
+              "node_modules/@totvs/po-theme/css/po-theme-default-variables.min.css",
+              "node_modules/@totvs/po-theme/css/po-theme-default.min.css",
+              "node_modules/@po-ui/style/css/po-theme-core.min.css"
+
+Mudar a linha: "builder": "@angular-devkit/build-angular:aplication"
+mudar de aplication para browser
+
+Mudar a linha: "browser": "src/main.ts",
+mudar de browser para main
+
+app.config.tss:
+adicionar 
+import { PoTemplatesModule } from '@po-ui/ng-templates';
+
+app.components.ts:
+adicionar 
+import { ProAppConfigService } from '@totvs/protheus-lib-core';
+
+adicionar no export class AppComponent:
+  constructor(private propAppConfigService: ProAppConfigService){
+    if (!this.propAppConfigService.insideProtheus){
+      this.propAppConfigService.loadAppConfig()
+    }
+  }
+
+botão de sair:
+    { label: 'Exit', action: this.closeApp.bind(this) },
+
+função sair:
+  private closeApp() {
+    if (this.propAppConfigService.insideProtheus()){
+      this.propAppConfigService.callAppClose();
+    } else {
+      alert('O app não está sendo executado dentro do Protheus.')
+    }
+  }
+
+compilar projeto:
+ng build
+
+Lembrete: Organizar
