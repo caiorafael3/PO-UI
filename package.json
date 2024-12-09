@@ -18,7 +18,13 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@po-ui/ng-code-editor": "^17.26.8",
+    "@po-ui/ng-components": "^17.26.8",
+    "@po-ui/ng-templates": "^17.26.8",
+    "@totvs/po-theme": "^17.26.8",
+    "@totvs/protheus-lib-core": "^17.3.3",
     "rxjs": "~7.8.0",
+    "subsink": "^1.0.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

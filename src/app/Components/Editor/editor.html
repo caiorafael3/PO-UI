@@ -1,0 +1,46 @@
+<form #f="ngForm">
+    <div class="po-row">
+        <po-button class="po-md-3" p-label="Histórico"></po-button>
+        <po-button class="po-md-3" p-label="Abrir"></po-button>
+        <po-button class="po-md-3" p-label="Salvar"></po-button>
+        <po-button class="po-md-3" p-label="Fechar"></po-button>
+    </div>
+    <br />
+    <div class="po-row">
+        <po-button class="po-md-3" p-label="Indentar Query"></po-button>
+        <po-button class="po-md-3" p-label="Gerar Select"></po-button>
+        <po-button class="po-md-3" p-label="Ajuda"></po-button>
+        <po-select
+            class="po-md-3"
+            name="tema"
+            [p-options]="OpcoesTema"
+            (p-change)="mudaTema($event)">
+        </po-select>
+    </div>
+</form>
+<br />
+<div class="po-row">
+    <po-button class="po-md-3" p-label="Executar" (p-click)="verificaUpdate(codigo)"></po-button>
+    <po-button class="po-md-3" p-label="Limpar" (p-click)="limpar()"></po-button>
+</div>
+<hr />
+<div class="po-row">
+    <po-code-editor
+      class="po-md-12"
+      [(ngModel)]="codigo"
+      p-height="300"
+      [p-theme]="tema">
+    </po-code-editor>
+</div>
+<hr />
+<po-table [p-items]="[
+    { 
+        Filial: '01', 
+        Prefixo: 'TES', 
+        Numero: '478841' ,
+        Codigo: '010512', 
+        Loja: '01', 
+        Nome: 'FERNANDA APRIGIO',
+        Valor: '1000'
+    }]"> 
+</po-table>
