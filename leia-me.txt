@@ -1,76 +1,105 @@
-Atualmente o @totvs/protheus-lib-core@latest só vai ate a versão 17.
-INSTALAR VERSÃO 17 EM TODOS.
 
-Instalar Angular:
+# Guia de Instalação e Configuração de Projeto Angular com PO-UI e Protheus
+
+## Requisitos
+- Certifique-se de que o Node.js e o npm estão instalados.
+- O `@totvs/protheus-lib-core` está disponível apenas até a versão 17. Utilize o angular na versão 17 para não problema.
+
+---
+
+## 1. Instalar Angular CLI
 npm i -g @angular/cli@17
 
-Criar Projeto:
+---
+
+## 2. Criar e Configurar o Projeto Angular
+### 2.1 Criar o projeto:
 ng new my-protheus-app
 cd my-protheus-app
 
-Instalar componentes:
+### 2.2 Instalar componentes PO-UI:
 ng add @po-ui/ng-components@17
-
-Instalar templates:
 ng add @po-ui/ng-templates@17
 
-Instalar dependência:
-npm i subsink
+### 2.3 Instalar dependências adicionais:
+- Subsink (Gerenciamento de subscrições):
+  npm i subsink
 
-Bilioteca que ajuda na integração com o Protheus. ex: autenticação
-npm i @totvs/protheus-lib-core@17
+- Biblioteca de integração com o Protheus:
+  npm i @totvs/protheus-lib-core@17
 
-Instalar o tema do Protheus:
-npm i @totvs/po-theme@17
+- Tema do Protheus:
+  npm i @totvs/po-theme@17
 
-Subir e abrir o servidor:
-ng serve -o
+---
 
-CONFIGURAR COMPILAÇÃO VSCODE:
-configurações -> extensões -> Totvs Language Server Launch: Args - abrir arquivo JSON
-Caso não tenha "totvsLanguageServer.folder.extensionsAllowed"
-Adicione e informe ".APP"
+## 3. Configurações no Angular.json
+Abra o arquivo `angular.json` e localize a propriedade `styles`. Adicione as linhas abaixo nos dois styles:
+json
+"styles": [
+  "node_modules/@totvs/po-theme/css/po-theme-default-variables.min.css",
+  "node_modules/@totvs/po-theme/css/po-theme-default.min.css",
+  "node_modules/@po-ui/style/css/po-theme-core.min.css"
+]
 
-Adicionar no arquivo do Angular.json:
-Procurar por styles e preencher nos dois lugares para usar os temas do protheus:
-              "node_modules/@totvs/po-theme/css/po-theme-default-variables.min.css",
-              "node_modules/@totvs/po-theme/css/po-theme-default.min.css",
-              "node_modules/@po-ui/style/css/po-theme-core.min.css"
+---
 
-Mudar a linha: "builder": "@angular-devkit/build-angular:aplication"
-mudar de aplication para browser
+## 4. Ajustes na Configuração de Compilação
+### 4.1 Alterações no `angular.json`:
+- Linha do builder: 
+  Substitua: `"builder": "@angular-devkit/build-angular:application"` 
+  por: "builder": "@angular-devkit/build-angular:browser"
+  
+- Linha do browser:
+  Substitua: `"browser": "src/main.ts"` 
+  por: "main": "src/main.ts"
+  
 
-Mudar a linha: "browser": "src/main.ts",
-mudar de browser para main
+### 4.2 Configuração no VSCode:
+- Acesse: Configurações → Extensões → Totvs Language Server Launch → Args
+- Abra o arquivo JSON e adicione:
+  "totvsLanguageServer.folder.extensionsAllowed": ".APP"
 
-app.config.tss:
-adicionar 
+---
+
+-- Boa pratica:
+## 5. Ajustes no Código Fonte
+### 5.1 `app.module.ts`
+Adicione:
 import { PoTemplatesModule } from '@po-ui/ng-templates';
 
-app.components.ts:
-adicionar 
+### 5.2 `app.component.ts`
+Adicione as seguintes importações:
 import { ProAppConfigService } from '@totvs/protheus-lib-core';
 
-adicionar no export class AppComponent:
-  constructor(private propAppConfigService: ProAppConfigService){
-    if (!this.propAppConfigService.insideProtheus){
-      this.propAppConfigService.loadAppConfig()
-    }
+No constructor da classe `AppComponent`, adicione:
+constructor(private propAppConfigService: ProAppConfigService) {
+  if (!this.propAppConfigService.insideProtheus) {
+    this.propAppConfigService.loadAppConfig();
   }
+}
 
-botão de sair:
-    { label: 'Exit', action: this.closeApp.bind(this) },
+### 5.3 Botão de sair:
+Adicione um botão de sair no menu:
+typescript
+{ label: 'Exit', action: this.closeApp.bind(this) }
 
-função sair:
-  private closeApp() {
-    if (this.propAppConfigService.insideProtheus()){
-      this.propAppConfigService.callAppClose();
-    } else {
-      alert('O app não está sendo executado dentro do Protheus.')
-    }
+Crie a função `closeApp`:
+typescript
+private closeApp() {
+  if (this.propAppConfigService.insideProtheus()) {
+    this.propAppConfigService.callAppClose();
+  } else {
+    alert('O app não está sendo executado dentro do Protheus.');
   }
+}
 
-compilar projeto:
-ng build
+---
 
-Lembrete: Organizar
+## 6. Executar o Projeto
+- Para iniciar o servidor e abrir o navegador:
+  ng serve -o
+  
+- Para compilar o projeto:
+  ng build
+  

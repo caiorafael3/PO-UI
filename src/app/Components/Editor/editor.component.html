@@ -1,0 +1,27 @@
+<form #f="ngForm">
+    <div class="po-row">
+        <po-button class="po-md-2" p-label="Executar" (p-click)="executa(codigo)"></po-button>
+        <po-button class="po-md-2" p-label="Limpar" (p-click)="limpar()"></po-button>
+        <po-button class="po-md-2" p-label="Gerar Select"></po-button>
+        <po-button class="po-md-2" p-label="Histórico"></po-button>
+        <po-select
+            class="po-md-2"
+            name="tema"
+            [p-options]="opcoesTema"
+            (p-change)="mudaTema($event)">
+        </po-select>
+    </div>
+</form>
+<hr />
+<div class="po-row">
+    <po-code-editor
+      class="po-md-12"
+      [(ngModel)]="codigo"
+      p-height="300"
+      [p-theme]="tema">
+    </po-code-editor>
+</div>
+<hr />
+
+<po-table [p-items]="dados" [p-columns]="resultado"> 
+</po-table>
