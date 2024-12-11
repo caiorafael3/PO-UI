@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { api } from './Api/api';
-import { autenticacao } from './Autenticacao/autenticacao';
+import { api } from '../../Api/api';
+import { autenticacao } from '../../Autenticacao/autenticacao';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,12 @@ export class ConsultaService {
   constructor(private http: HttpClient) { }
 
   exibirConsulta(codigo: String): Observable<any>{
+    // Transforma a string em uma representação codificada em Base64(sequência de caracteres)
     const autenticacao = btoa(`${this.usuario}:${this.senha}`)
     const headers = new HttpHeaders({
       Authorization: `Basic ${autenticacao}`
     })
+
     return this.http.post(`${api.urlConsulta}`, {'query' : codigo}, {headers});
   }
 }

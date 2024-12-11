@@ -1,0 +1,37 @@
+<form #f="ngForm">
+    <div class="po-row">
+        <po-button
+            class="po-md-2"
+            p-label="Executar"
+            (p-click)="executa()">
+        </po-button>
+
+        <po-button
+            class="po-md-2"
+            p-label="Limpar"
+            (p-click)="limpar()">
+        </po-button>
+
+        <po-button 
+            class="po-md-2" 
+            p-label="Gerar Select">
+        </po-button>
+
+        <po-button 
+            class="po-md-2" 
+            p-label="Histórico"
+            (p-click)="modal.open()">
+        </po-button>
+
+        <po-select
+            class="po-md-2"
+            name="tema"
+            [p-options]="opcoesTema"
+            (p-change)="mudaTema($event)">
+        </po-select>
+    </div>
+</form>
+
+<po-modal #modal p-title="Histórico"> 
+    <app-historico></app-historico>
+</po-modal>
