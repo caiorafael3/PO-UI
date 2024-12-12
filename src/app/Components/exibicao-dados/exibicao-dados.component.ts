@@ -13,18 +13,18 @@ import { PoModule } from '@po-ui/ng-components';
 })
 export class ExibicaoDadosComponent implements OnInit {
   public dados: Array<any> = [];
-  public resultado: Array<{ label: string; property: string }> = [];
+  public colunas: Array<{ label: string; property: string }> = [];
 
   constructor(private editorService: EditorService) {}
 
   ngOnInit(): void {
-    // Subscreve-se aos observáveis para obter os dados e o resultado
+    // Subscreve-se aos observáveis para obter os dados e o colunas
     this.editorService.dados$.subscribe((dados) => {
       this.dados = dados;
     });
 
-    this.editorService.resultado$.subscribe((resultado) => {
-      this.resultado = resultado;
+    this.editorService.colunas$.subscribe((colunas) => {
+      this.colunas = colunas;
     });
   }
 }

@@ -1,4 +1,4 @@
-let urlApi: String = `https://apihomologa.guaraves.tech/rest/WSCONSULTA/v1`
+let urlApi: String = `https://apihomologa.guaraves.tech/rest/WSEDITSQL/v1`
 
 export const api = {
     urlApi: urlApi,

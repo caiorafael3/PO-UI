@@ -13,7 +13,7 @@ export class ConsultaService {
 
   constructor(private http: HttpClient) { }
 
-  exibirConsulta(codigo: String): Observable<any>{
+  executarConsulta(codigo: String): Observable<any>{
     // Transforma a string em uma representação codificada em Base64(sequência de caracteres)
     const autenticacao = btoa(`${this.usuario}:${this.senha}`)
     const headers = new HttpHeaders({

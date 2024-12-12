@@ -1,6 +1,10 @@
 <div class="po-wrapper">
-  <po-menu [p-menus]="menus" [p-automatic-toggle]="true">
-    <div *p-menu-header-template class="po-p-2 po-font-title sample-menu-header-text-color">
+  <po-menu 
+    [p-collapsed]="true"
+    [p-filter]="true"
+    [p-automatic-toggle]="false"
+    [p-menus]="menus" >
+    <div *p-menu-header-template class="po-p-2 po-font-title">
       <p>Bem vindo</p>
       <p>
         <b> Caio Rafael </b>
@@ -9,6 +13,6 @@
   </po-menu>
 
   <po-page-default p-title="Editor SQL">
-    <app-editor></app-editor>
+    <router-outlet></router-outlet>
   </po-page-default>
 </div>

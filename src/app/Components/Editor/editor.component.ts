@@ -17,20 +17,21 @@ import {
   standalone: true,
   imports: [CommonModule, FormsModule, PoCodeEditorModule, PoCheckboxGroupModule, PoFieldModule, PoButtonModule, PoModule, OpcoesComponent, ExibicaoDadosComponent],
   templateUrl: './editor.component.html',
+  styleUrl: './editor.component.css',
 })
 
 export class EditorComponent {
   public query: string = '';
   public tema: string = '';
   public dados: Array<any> = [];
-  public resultado: Array<{ label: string; property: any }> = [];
+  public colunas: Array<{ label: string; property: any }> = [];
 
   constructor(private editorService: EditorService) {
     this.editorService.query$.subscribe((query) => (this.query = query));
     this.editorService.tema$.subscribe((tema) => (this.tema = tema));
     this.editorService.dados$.subscribe((dados) => (this.dados = dados));
-    this.editorService.resultado$.subscribe(
-      (resultado) => (this.resultado = resultado)
+    this.editorService.colunas$.subscribe(
+      (colunas) => (this.colunas = colunas)
     );
   }
 

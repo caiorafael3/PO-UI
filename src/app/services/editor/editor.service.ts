@@ -16,8 +16,8 @@ export class EditorService {
   private dadosSubject = new BehaviorSubject<Array<any>>([])
   public dados$ = this.dadosSubject.asObservable();
 
-  private resultadoSubject = new BehaviorSubject<Array<{ label: string; property: any }>>([]);
-  public resultado$ = this.resultadoSubject.asObservable();
+  private colunasSubject = new BehaviorSubject<Array<{ label: string; property: any }>>([]);
+  public colunas$ = this.colunasSubject.asObservable();
 
   private historicoSubject = new BehaviorSubject<Array<any>>([])
   public historico$ = this.historicoSubject.asObservable();
@@ -44,8 +44,8 @@ export class EditorService {
     this.dadosSubject.next(dados);
   }
 
-  public setResultado(resultado: Array<{ label: string; property: any }>): void {
-    this.resultadoSubject.next(resultado);
+  public setColunas(colunas: Array<{ label: string; property: any }>): void {
+    this.colunasSubject.next(colunas);
   }
 
   public getHistorico() : Array<any> {

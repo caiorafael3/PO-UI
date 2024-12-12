@@ -1,0 +1,21 @@
+::ng-deep .po-menu {
+    background-color: #253032;
+    border: none;
+    color: #5199c2;
+}
+
+::ng-deep .po-menu-item{
+    outline: none;
+    color: #5199c2;
+}
+
+::ng-deep .po-menu-filter {
+    border: 2px solid transparent;
+    border-radius: 30px;
+    outline: none; 
+    background-color: #3b4446;
+}
+
+.po-font-title {
+    color: #5199c2;
+}
