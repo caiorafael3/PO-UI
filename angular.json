@@ -26,11 +26,9 @@
               { "glob": "**/*", "input": "node_modules/monaco-editor/min", "output": "/assets/monaco/" }
             ],
             "styles": [
-              "./node_modules/@po-ui/style/css/po-theme-default.min.css",
-              "node_modules/@totvs/po-theme/css/po-theme-default-variables.min.css",
-              "node_modules/@totvs/po-theme/css/po-theme-default.min.css",
-              "node_modules/@po-ui/style/css/po-theme-core.min.css",
-              "./node_modules/@po-ui/style/css/po-theme-default.min.css"
+              "node_modules/@po-ui/style/css/po-theme-default.min.css",          
+              "node_modules/@po-ui/style/css/po-theme-core.min.css",          
+              "src/styles.css"  
             ],
             "scripts": []
           },
@@ -90,16 +88,17 @@
               { "glob": "**/*", "input": "node_modules/monaco-editor/min", "output": "/assets/monaco/" }
             ],
             "styles": [
-              "./node_modules/@po-ui/style/css/po-theme-default.min.css",
-              "node_modules/@totvs/po-theme/css/po-theme-default-variables.min.css",
-              "node_modules/@totvs/po-theme/css/po-theme-default.min.css",
-              "node_modules/@po-ui/style/css/po-theme-core.min.css",
-              "./node_modules/@po-ui/style/css/po-theme-default.min.css"
+              "node_modules/@po-ui/style/css/po-theme-default.min.css",         
+              "node_modules/@po-ui/style/css/po-theme-core.min.css",          
+              "src/styles.css"  
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "681bd7d5-38f4-45cf-8f6c-6b88c0bcab1a"
   }
 }

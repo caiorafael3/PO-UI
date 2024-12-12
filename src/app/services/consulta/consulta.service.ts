@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { api } from '../../Api/api';
-import { autenticacao } from '../../Autenticacao/autenticacao';
+// import { autenticacao } from '../../Autenticacao/autenticacao';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsultaService {
-  private usuario: string = `${autenticacao.usuario}`;
-  private senha: string = `${autenticacao.senha}`;
+  private usuario: string = `caio.rafael`;
+  private senha: string = `caiocaua8`;
 
   constructor(private http: HttpClient) { }
 

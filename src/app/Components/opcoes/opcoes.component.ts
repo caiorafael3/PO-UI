@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditorService } from '../../services/editor/editor.service';
@@ -8,7 +8,8 @@ import { HistoricoComponent } from './historico/historico.component';
 import {
   PoModule,
   PoSelectOption,
-  PoModalModule
+  PoModalModule,
+  PoModalComponent 
 } from '@po-ui/ng-components';
 
 @Component({
@@ -22,12 +23,14 @@ import {
 export class OpcoesComponent {
   public tema: string = 'vs';
   public query: string = '';
+  public titulo: string = '';
   public historico: Array<any> = []
   public readonly opcoesTema: PoSelectOption[] = [
     { label: 'VS', value: 'vs' },
     { label: 'VS Dark', value: 'vs-dark' },
     { label: 'HC Black', value: 'hc-black' },
   ];
+  @ViewChild(PoModalComponent, { static: true }) poModal!: PoModalComponent;
 
   constructor(private editorService: EditorService, private consultaService: ConsultaService) {
     // Se inscreve para observar mudanças dos valores no código e tema
@@ -66,5 +69,14 @@ export class OpcoesComponent {
         }
       })
     }
+  }
+
+  // Metodo para fechar o modal de salvar
+  closeModal() {
+    this.poModal.close();
+  }
+
+  // Metodo para criar e salvar arquivo
+  salvar(): void {
   }
 }

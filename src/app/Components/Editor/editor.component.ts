@@ -17,6 +17,7 @@ import {
   standalone: true,
   imports: [CommonModule, FormsModule, PoCodeEditorModule, PoCheckboxGroupModule, PoFieldModule, PoButtonModule, PoModule, OpcoesComponent, ExibicaoDadosComponent],
   templateUrl: './editor.component.html',
+  styleUrl: './editor.component.css',
 })
 
 export class EditorComponent {

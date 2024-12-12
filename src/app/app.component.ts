@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProAppConfigService } from '@totvs/protheus-lib-core';
-import { EditorComponent } from './Components/editor/editor.component';
+import { EditorComponent } from './Components/Editor/editor.component';
 
 import {
   PoMenuItem,
@@ -37,12 +37,13 @@ export class AppComponent {
     }
   }
 
-  readonly menus: Array<PoMenuItem> = [
-    { label: 'Home', action: this.onClick.bind(this) },
-    { label: 'Tabelas',},
-    { label: 'Exit', action: this.closeApp.bind(this) },
+  menus: Array<PoMenuItem> = [
+    { label: 'Home', icon: 'po-icon-home', shortLabel: 'Home' },
+    { label: 'Tabelas', icon: 'ph ph-database', shortLabel: 'Tabelas'},
+    { label: 'Minhas consultas', icon: 'ph ph-file-sql', shortLabel: 'Minhas consultas'},
+    { label: 'Sair', icon:'po-icon-exit', shortLabel: 'sair'},
   ];
-
+  
   private onClick() {
     alert('Clicked in menu item');
   }

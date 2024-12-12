@@ -1,0 +1,11 @@
+/* Select do tema */
+::ng-deep .po-select{
+    background-color: transparent;
+    border: 2px solid  #045b8f;
+    margin-top: 0px;
+}
+
+/* Retirando pading para deixar o select na msm posição dos outros botoes */
+::ng-deep .po-field-container-content{
+    padding: 0;
+}
