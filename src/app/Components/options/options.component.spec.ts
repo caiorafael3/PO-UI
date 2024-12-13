@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExibicaoDadosComponent } from './exibicao-dados.component';
+import { OptionsComponent } from './options.component';
 
-describe('ExibicaoDadosComponent', () => {
-  let component: ExibicaoDadosComponent;
-  let fixture: ComponentFixture<ExibicaoDadosComponent>;
+describe('OptionsComponent', () => {
+  let component: OptionsComponent;
+  let fixture: ComponentFixture<OptionsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExibicaoDadosComponent]
+      imports: [OptionsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ExibicaoDadosComponent);
+    fixture = TestBed.createComponent(OptionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -7,14 +7,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class EditorService {
   private querySubject = new BehaviorSubject<string>(''); // valor inicial da variavel
-  // Deixa o valor observavel para os outros componentes. Quando tiver alteração, será "notificado" quem for inscrito.
-  public query$ = this.querySubject.asObservable(); 
+  public query$ = this.querySubject.asObservable(); // Deixa o valor observavel para os outros componentes. Quando tiver alteração, será "notificado" quem for inscrito.
 
   private temaSubject = new BehaviorSubject<string>('vs');
   public tema$ = this.temaSubject.asObservable();
 
-  private carregandoSubject = new BehaviorSubject<boolean>(false);
-  public carregando$ = this.carregandoSubject.asObservable();
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
 
   private dadosSubject = new BehaviorSubject<Array<any>>([])
   public dados$ = this.dadosSubject.asObservable();
@@ -43,8 +42,8 @@ export class EditorService {
     return this.temaSubject.value;
   }
 
-  setCarregando(carregando: boolean): void {
-    this.carregandoSubject.next(carregando);
+  setloading(loading: boolean): void {
+    this.loadingSubject.next(loading);
   }
 
   setDados(dados: Array<any>): void {

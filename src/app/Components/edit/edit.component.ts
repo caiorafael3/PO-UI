@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PoCodeEditorModule } from '@po-ui/ng-code-editor';
-import { EditorService } from '../../services/editor/editor.service';
-import { OpcoesComponent } from '../opcoes/opcoes.component';
-import { ExibicaoDadosComponent } from '../exibicao-dados/exibicao-dados.component';
+import { EditorService } from '../../services/edit/editor.service';
+import { OptionsComponent } from '../options/options.component';
+import { DataComponent } from '../data/data.component';
 import {
   PoCheckboxGroupModule,
   PoFieldModule,
@@ -15,9 +15,9 @@ import {
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [CommonModule, FormsModule, PoCodeEditorModule, PoCheckboxGroupModule, PoFieldModule, PoButtonModule, PoModule, OpcoesComponent, ExibicaoDadosComponent],
-  templateUrl: './editor.component.html',
-  styleUrl: './editor.component.css',
+  imports: [CommonModule, FormsModule, PoCodeEditorModule, PoCheckboxGroupModule, PoFieldModule, PoButtonModule, PoModule, OptionsComponent, DataComponent],
+  templateUrl: './edit.component.html',
+  styleUrl: './edit.component.css',
 })
 
 export class EditorComponent {

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EditorService } from '../../services/editor/editor.service';
+import { EditorService } from '../../services/edit/editor.service';
 import { PoModule } from '@po-ui/ng-components';
 
 @Component({
   selector: 'app-exibicao-dados',
   standalone: true,
   imports: [CommonModule, FormsModule, PoModule],
-  templateUrl: './exibicao-dados.component.html',
-  styleUrl: './exibicao-dados.component.css',
+  templateUrl: './data.component.html',
+  styleUrl: './data.component.css',
 })
-export class ExibicaoDadosComponent implements OnInit {
+export class DataComponent implements OnInit {
   public dados: Array<any> = [];
-  public carregando: boolean = false;
+  public loading: boolean = false;
   public colunas: Array<{ label: string; property: string }> = [];
 
   constructor(private editorService: EditorService) {}
@@ -23,7 +23,7 @@ export class ExibicaoDadosComponent implements OnInit {
     this.editorService.dados$.subscribe((dados) => {
       this.dados = dados;
       if (dados.length > 0) {
-        this.editorService.setCarregando(false)
+        this.editorService.setloading(false)
       }
     });
 
@@ -31,8 +31,8 @@ export class ExibicaoDadosComponent implements OnInit {
       this.colunas = colunas;
     });
 
-    this.editorService.carregando$.subscribe((carregando) => {
-      this.carregando = carregando
+    this.editorService.loading$.subscribe((loading) => {
+      this.loading = loading
     })
   }
 }

@@ -1,9 +1,9 @@
 import { Component, ViewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EditorService } from '../../services/editor/editor.service';
-import { ConsultaService } from '../../services/consulta/consulta.service';
-import { HistoricoComponent } from './historico/historico.component';
+import { EditorService } from '../../services/edit/editor.service';
+import { ConsultaService } from '../../services/query/consulta.service';
+import { HistoryComponent } from './history/history.component';
 
 import {
   PoModule,
@@ -15,12 +15,12 @@ import {
 @Component({
   selector: 'app-opcoes',
   standalone: true,
-  imports: [CommonModule, FormsModule, PoModule, PoModalModule, HistoricoComponent],
-  templateUrl: './opcoes.component.html',
-  styleUrl: './opcoes.component.css',
+  imports: [CommonModule, FormsModule, PoModule, PoModalModule, HistoryComponent],
+  templateUrl: './options.component.html',
+  styleUrl: './options.component.css',
 })
 
-export class OpcoesComponent {
+export class OptionsComponent {
   public tema: string = 'vs';
   public query: string = '';
   public titulo: string = '';
@@ -52,7 +52,7 @@ export class OpcoesComponent {
   executa(): void {
     if (this.query) {
       this.historico.push({ "consulta" : this.query});
-      this.consultaService.executarConsulta(this.query).subscribe({
+      this.consultaService.getItemsQuery(this.query).subscribe({
         next: (resposta) => {
           console.log(resposta);
           const dados = resposta.dados;
