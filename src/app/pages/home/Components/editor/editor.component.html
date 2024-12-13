@@ -1,0 +1,9 @@
+<div class="po-row">
+    <po-code-editor
+      class="po-md-12"
+      [(ngModel)]="consulta"
+      (ngModelChange)="atualizarConsulta($event)"
+      p-height="400"
+      [p-theme]="temaEditor">
+    </po-code-editor>
+</div>

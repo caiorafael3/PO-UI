@@ -3,8 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ProAppConfigService } from '@totvs/protheus-lib-core';
-import { EditorComponent } from './Components/edit/edit.component';
-import { TabelaComponent } from './Components/tabela/tabela.component';
+import { EditorComponent } from './pages/home/Components/editor/editor.component';
 
 import {
   PoMenuItem,

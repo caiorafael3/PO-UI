@@ -1,0 +1,20 @@
+<div class="po-md-12">
+  <h3>Tabelas</h3>
+  <po-table
+        #POItensOrigem
+        [p-columns]="colunasTabelas"
+        [p-infinite-scroll]="true"
+        [p-selectable]=true
+        [p-hide-select-all]="true"
+        [p-hide-table-search]="false"
+        [p-infinite-scroll-distance]=80
+        (p-selected)="mudarOpcoes($event, 'new')"
+        (p-unselected)="mudarOpcoes($event, 'change')"
+        [p-height]=300
+        [p-items]="itens"
+        (p-delete-items)="deletarItens($event)"
+        [p-hide-action-fixed-columns]="true"
+        [p-text-wrap]="true"
+        [p-virtual-scroll]="false">
+  </po-table>
+</div>
