@@ -36,6 +36,6 @@ export class EditorComponent {
   }
 
   atualizaQuery(novaQuery: string): void {
-    this.editorService.setquery(novaQuery);
+    this.editorService.setQuery(novaQuery);
   }
 }

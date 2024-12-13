@@ -12,9 +12,22 @@
             (p-click)="limpar()">
         </po-button>
 
+        <div>
+            <po-button 
+                p-label="Selecionar arquivo" 
+                (click)="fileInput.click()">
+            </po-button>
+            <input 
+                #fileInput 
+                type="file" 
+                (change)="selecionaArquivo($event)" 
+                style="display: none;"
+             />
+        </div>
+
         <po-button
             class="po-md-1.5"
-            p-label="Salvar"
+            p-label="Salvar arquivo"
             (p-click)="modalSalvar.open()">
         </po-button>
 
@@ -34,10 +47,25 @@
 </form>
 
 <po-modal #modalSalvar p-title="Salvar"> 
-    <po-input name="titulo" p-label="Titulo" p-placeholder="Digite o titulo" [(ngModel)]="titulo"></po-input>
+    <po-input 
+        name="titulo" 
+        p-label="Titulo" 
+        p-placeholder="Digite o titulo" 
+        [(ngModel)]="titulo">
+    </po-input>
+
     <po-modal-footer [p-disabled-align]="false">
-        <po-button p-danger="true" p-label="Fechar" (p-click)="closeModal()"></po-button>
-        <po-button p-kind="primary" p-label="Salvar" (p-click)="salvar()"></po-button>
+        <po-button 
+            p-danger="true" 
+            p-label="Fechar"
+            (p-click)="closeModal()">
+        </po-button>
+        
+        <po-button 
+            p-kind="primary" 
+            p-label="Salvar" 
+            (p-click)="salvar()">
+        </po-button>
     </po-modal-footer>
 </po-modal>
 

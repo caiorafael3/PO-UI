@@ -1,2 +1,9 @@
-<po-table [p-items]="dados" [p-columns]="colunas"></po-table>
+@if (carregando) {
+    <div class="sample-container">
+        <po-loading-overlay></po-loading-overlay>
+    </div>
+} @else {
+    <po-table [p-items]="dados" [p-columns]="colunas"></po-table>
+}
+
 

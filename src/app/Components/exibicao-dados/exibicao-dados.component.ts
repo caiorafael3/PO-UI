@@ -13,6 +13,7 @@ import { PoModule } from '@po-ui/ng-components';
 })
 export class ExibicaoDadosComponent implements OnInit {
   public dados: Array<any> = [];
+  public carregando: boolean = false;
   public colunas: Array<{ label: string; property: string }> = [];
 
   constructor(private editorService: EditorService) {}
@@ -21,10 +22,17 @@ export class ExibicaoDadosComponent implements OnInit {
     // Subscreve-se aos observáveis para obter os dados e o colunas
     this.editorService.dados$.subscribe((dados) => {
       this.dados = dados;
+      if (dados.length > 0) {
+        this.editorService.setCarregando(false)
+      }
     });
 
     this.editorService.colunas$.subscribe((colunas) => {
       this.colunas = colunas;
     });
+
+    this.editorService.carregando$.subscribe((carregando) => {
+      this.carregando = carregando
+    })
   }
 }

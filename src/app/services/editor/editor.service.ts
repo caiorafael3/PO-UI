@@ -13,6 +13,9 @@ export class EditorService {
   private temaSubject = new BehaviorSubject<string>('vs');
   public tema$ = this.temaSubject.asObservable();
 
+  private carregandoSubject = new BehaviorSubject<boolean>(false);
+  public carregando$ = this.carregandoSubject.asObservable();
+
   private dadosSubject = new BehaviorSubject<Array<any>>([])
   public dados$ = this.dadosSubject.asObservable();
 
@@ -23,36 +26,40 @@ export class EditorService {
   public historico$ = this.historicoSubject.asObservable();
 
   // Metodo para adicionar novo valor
-  public setquery(novaQuery: string): void {
+  setQuery(novaQuery: string): void {
     this.querySubject.next(novaQuery);
   }
 
   // Metodo para resgatar o valor
-  public getquery(): string {
+  getQuery(): string {
     return this.querySubject.value;
   }
 
-  public setTema(novoTema: string): void {
+  setTema(novoTema: string): void {
     this.temaSubject.next(novoTema);
   }
 
-  public getTema(): string {
+  getTema(): string {
     return this.temaSubject.value;
   }
 
-  public setDados(dados: Array<any>): void {
+  setCarregando(carregando: boolean): void {
+    this.carregandoSubject.next(carregando);
+  }
+
+  setDados(dados: Array<any>): void {
     this.dadosSubject.next(dados);
   }
 
-  public setColunas(colunas: Array<{ label: string; property: any }>): void {
+  setColunas(colunas: Array<{ label: string; property: any }>): void {
     this.colunasSubject.next(colunas);
   }
 
-  public getHistorico() : Array<any> {
+  getHistorico() : Array<any> {
     return this.historicoSubject.value
   }
 
-  public setHistorico(historico: Array<any>) {
+  setHistorico(historico: Array<any>) {
     this.historicoSubject.next(historico)
   }
 }
