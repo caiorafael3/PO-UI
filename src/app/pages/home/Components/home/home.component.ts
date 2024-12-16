@@ -10,6 +10,5 @@ import { DadosComponent } from '../dados/dados.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}
+ 

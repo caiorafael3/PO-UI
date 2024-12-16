@@ -1,0 +1,7 @@
+:host ::ng-deep .po-radio{
+    display: none;
+}
+
+:host ::ng-deep .po-table .po-table-column-selectable{
+    display: none;
+}

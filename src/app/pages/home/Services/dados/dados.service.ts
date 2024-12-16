@@ -15,16 +15,16 @@ export class DadosService {
   public colunas$ = this.colunasSubject.asObservable();
 
   // Metodo para adicionar novo valor
-  setCarregando(carregando: boolean): void {
+  public setCarregando(carregando: boolean): void {
     this.carregandoSubject.next(carregando);
   }
 
-  // Metodo para resgatar o valor
-  setDados(dados: Array<any>): void {
+  public setDados(dados: Array<any>): void {
     this.dadosSubject.next(dados);
   }
 
-  setColunas(colunas: Array<{ label: string; property: any }>): void {
+  public setColunas(colunas: Array<{ label: string; property: any }>): void {
     this.colunasSubject.next(colunas);
   }
 }
+ 

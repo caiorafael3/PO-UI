@@ -20,6 +20,7 @@
             <input 
                 #fileInput 
                 type="file" 
+                accept=".sql"
                 (change)="selecionarArquivo($event)" 
                 style="display: none;"
              />
@@ -27,7 +28,7 @@
 
         <po-button
             class="po-md-1.5"
-            p-label="Salvar arquivo"
+            p-label="Salvar consulta"
             (p-click)="modalSalvar.open()">
         </po-button>
 
@@ -36,13 +37,15 @@
             p-label="Histórico"
             (p-click)="modalHistorico.open()">
         </po-button>
-        
-        <po-select
-            class="po-md-1.5 tema-select"
-            name="tema"
-            [p-options]="opcoesTema"
-            (p-change)="mudarTema($event)">
-        </po-select>
+
+        <div class="tema" [ngClass]="opcaoTema ? 'dark' : 'light'">
+            <input type="checkbox" name="tema" class="checkbox" id="check" [(ngModel)]="opcaoTema" (ngModelChange)="mudarTema()">
+            <label class="label" for="check">
+                <i class="ph ph-sun-dim" id="sol"></i>
+                <i class="ph ph-moon"></i>
+                <div class="bola"></div>
+            </label>
+        </div>
     </div>
 </form>
 
@@ -50,7 +53,7 @@
     <po-input 
         name="titulo" 
         p-label="Titulo" 
-        p-placeholder="Digite o titulo" 
+        p-placeholder="Digite o nome do arquivo" 
         [(ngModel)]="titulo">
     </po-input>
 
@@ -71,4 +74,4 @@
 
 <po-modal #modalHistorico p-title="Histórico"> 
     <app-historico></app-historico>
-</po-modal>
+</po-modal> 

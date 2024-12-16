@@ -13,9 +13,9 @@ export class AutenticacaoService {
   private autenticacao: string = btoa(`${this.usuario}:${this.senha}`); // Transforma a string em uma representação codificada em Base64(sequência de caracteres)
 
   // Metodo para gerar o header de autenticacao
-  getAutenticacao(): HttpHeaders {
+  public getAutenticacao(): HttpHeaders {
     return new HttpHeaders({
       Authorization: `Basic ${this.autenticacao}`
     });
   }
-}
+} 

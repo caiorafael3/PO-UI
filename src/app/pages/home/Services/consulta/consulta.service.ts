@@ -15,9 +15,10 @@ export class ConsultaService {
     private autenticacaoService: AutenticacaoService
   ) {}
 
-  getConsulta(codigo: String): Observable<any> {
+  public getConsulta(codigo: String): Observable<any> {
     this.dadosService.setCarregando(true);
 
-    return this.http.post(`${api.urlConsulta}`, {consulta: codigo }, {headers: this.autenticacaoService.getAutenticacao()});
+    return this.http.post(`${api.urlTabelas}`, {consulta: codigo }, {headers: this.autenticacaoService.getAutenticacao()});
   }
 }
+ 

@@ -1,16 +1,18 @@
-import { Component, ViewChild  } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditorService } from '../../Services/editor/editor.service';
 import { DadosService } from '../../Services/dados/dados.service';
 import { ConsultaService } from '../../Services/consulta/consulta.service';
 import { HistoricoComponent } from './historico/historico.component';
+import { temaConfig } from '../../../../config/tema.config';
 
 import {
   PoModule,
-  PoSelectOption,
   PoModalModule,
-  PoModalComponent 
+  PoModalComponent,
+  PoNotificationService,
+  PoThemeService
 } from '@po-ui/ng-components';
 
 @Component({
@@ -21,37 +23,51 @@ import {
   styleUrl: './opcoes.component.css',
 })
 
-export class OpcoesComponent {
-  public tema: string = 'vs';
+export class OpcoesComponent implements OnInit { 
+  public opcaoTema: boolean = false;
   public consulta: string = '';
   public titulo: string = '';
   public historico: Array<any> = []
-  public readonly opcoesTema: PoSelectOption[] = [
-    { label: 'VS', value: 'vs' },
-    { label: 'VS Dark', value: 'vs-dark' },
-    { label: 'HC Black', value: 'hc-black' },
-  ];
   
   @ViewChild(PoModalComponent, { static: true }) poModal!: PoModalComponent;
 
-  constructor(private editorService: EditorService, private consultaService: ConsultaService, private dadosService : DadosService) {
+  constructor(
+    private editorService: EditorService, 
+    private consultaService: ConsultaService, 
+    private dadosService : DadosService, 
+    private poNotification : PoNotificationService,
+    private poThemeService : PoThemeService
+  ) {
     // Se inscreve para observar mudanças dos valores no código e tema
     this.editorService.consulta$.subscribe((consulta) => (this.consulta = consulta));
-    this.editorService.temaEditor$.subscribe((temaEditor) => (this.tema = temaEditor));
+  }
+
+  public ngOnInit() {
+    const temaSalvo = localStorage.getItem('tema');
+    this.opcaoTema = temaSalvo === 'dark'
+
+    this.aplicarTema();
+  }
+
+  // Metodo para alterar o tema
+  public mudarTema() : void{
+    this.aplicarTema()
+  }
+
+  // Metodo para aplicar o tema selecionado
+  private aplicarTema() {
+    this.poThemeService.setTheme(temaConfig, this.opcaoTema ? 1 : 0);
+    this.editorService.setTema(this.opcaoTema ? 'vs-dark' : 'vs');
+    localStorage.setItem('tema', this.opcaoTema ? 'dark' : 'light'); 
   }
 
   // Metodo para limpar o editor
-  limpar(): void {
+  public limpar(): void {
     this.editorService.setConsulta(''); 
   }
 
-  // Metodo para alterar o tema do editor
-  mudarTema(novoTema: string): void {
-    this.editorService.setTema(novoTema); 
-  }
-  
   // Metodo para executar o consulta SQL do editor
-  executar(): void {
+  public executar(): void {
     if (this.consulta) {
       this.historico.push({ "consulta" : this.consulta});
       this.consultaService.getConsulta(this.consulta).subscribe({
@@ -66,24 +82,61 @@ export class OpcoesComponent {
           this.dadosService.setColunas(colunas);
           this.editorService.setHistorico(this.historico);
         },
-        error: (erro) => {
-          console.error('Erro ao exibir colunas da consulta', erro);
+        error: (error) => {
+          this.poNotification['error'](`Ocorreu um erro ao exibir resultado da consulta.`);
+          console.error(`Ocorreu um erro ao exibir resultado da consulta: ${error}`);
         }
       })
     }
   }
 
   // Metodo para fechar o modal de salvar
-  closeModal() {
+  public closeModal() {
     this.poModal.close();
   }
 
-  // Metodo para criar e salvar arquivo
-  salvar(): void {
+  // Metodo para salvar o conteudo da consulta
+  public salvar(): void {
+    const mensagemAlerta = this.validarDados();
+
+    if (mensagemAlerta) {
+      this.poNotification['information'](mensagemAlerta);
+      return;
+    }
+
+    this.salvarArquivo(this.consulta, this.titulo);
+    this.poModal.close();
+    this.poNotification['success']('Arquivo salvo com sucesso.');
+  }
+
+  // Metodo para verificar se todas informação necessárias estão preenchidas
+  private validarDados(): string | null{
+    if (!this.consulta && !this.titulo) {
+      return 'Titulo e consulta não informado.';
+    }
+    if (!this.consulta) {
+      return 'Consulta não informada.';
+    }
+    if (!this.titulo) {
+      return 'Titulo não informado.';
+    }
+    return null;
+  }
+
+  // Metodo para realizar o download do arquivo
+  private salvarArquivo(consulta: string, titulo: string): void {
+    const arquivo = new Blob([consulta], { type: "text/plain" });
+    const elementoLink = document.createElement("a");
+    const url = URL.createObjectURL(arquivo);
+  
+    elementoLink.href = url;
+    elementoLink.download = `${titulo}.sql`;
+    elementoLink.click();
+    URL.revokeObjectURL(url);
   }
 
   // Metodo para verificar o arquivo selecionado
-  selecionarArquivo(event : Event) : void {
+  public selecionarArquivo(event : Event) : void {
     const elemento = event.target as HTMLInputElement
     if (elemento.files){
       const arquivo = elemento.files[0];
@@ -92,16 +145,17 @@ export class OpcoesComponent {
   }
 
   // Metodo para ler arquivo selecionado
-  lerArquivo(arquivo : File): void {
+  private lerArquivo(arquivo : File): void {
     const leitor = new FileReader();
-    leitor.readAsText(arquivo);
-    
-    leitor.onload = (event: any) => {
-      this.editorService.setConsulta(event.target.result)
-    };
-    
-    leitor.onerror = (err) => {
-      console.error('Erro ao ler o arquivo', err);
-    };
+    try {
+      leitor.readAsText(arquivo); // Lendo todo o conteudo do arquivo
+      // Ao carregar, irá enviar o conteudo lido para o editor
+      leitor.onload = (event: any) => {
+        this.editorService.setConsulta(event.target.result)
+      };
+    } catch (error) {
+      this.poNotification['error'](`Ocorreu um erro ao ler o arquivo.`);
+      console.error(`Ocorreu um erro ao exibir resultado da consulta: ${error}`);
+    }
   }
 }

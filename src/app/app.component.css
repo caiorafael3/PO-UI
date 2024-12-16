@@ -1,15 +1,15 @@
-::ng-deep .po-menu {
+:host ::ng-deep .po-menu {
     background-color: #253032;
     border: none;
     color: #5199c2;
 }
 
-::ng-deep .po-menu-item{
+:host ::ng-deep .po-menu-item{
     outline: none;
     color: #5199c2;
 }
 
-::ng-deep .po-menu-filter {
+:host ::ng-deep .po-menu-filter {
     border: 2px solid transparent;
     border-radius: 30px;
     outline: none; 

@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ProAppConfigService } from '@totvs/protheus-lib-core';
-import { EditorComponent } from './pages/home/Components/editor/editor.component';
 
 import {
   PoMenuItem,
@@ -23,8 +22,7 @@ import {
     PoMenuModule,
     PoPageModule,
     HttpClientModule,
-    PoModule,
-    EditorComponent
+    PoModule
 ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
@@ -40,12 +38,16 @@ export class AppComponent {
   menus: Array<PoMenuItem> = [
     { label: 'Home', action: this.onClick.bind(this), icon: 'po-icon-home', shortLabel: 'Home' },
     { label: 'Tabelas', action: this.onTabelas.bind(this), icon: 'ph ph-database', shortLabel: 'Tabelas' },
-    { label: 'Minhas consultas', icon: 'ph ph-file-sql', shortLabel: 'Minhas consultas'},
+    { label: 'Minhas consultas', action: this.onMinhasConsultas.bind(this) , icon: 'ph ph-file-sql', shortLabel: 'Minhas consultas'},
     { label: 'Sair', action: this.closeApp.bind(this), icon:'po-icon-exit', shortLabel: 'sair'},
   ];
   
   private onClick() : void {
     this.router.navigate(['/', 'home']);
+  }
+
+  private onMinhasConsultas() : void {
+    this.router.navigate(['/', 'minhasConsultas']);
   }
 
   private onTabelas() : void {

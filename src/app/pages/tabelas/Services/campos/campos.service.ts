@@ -9,14 +9,13 @@ import { PoTableColumn } from '@po-ui/ng-components';
   providedIn: 'root'
 })
 export class CamposService {
-
   constructor(private http: HttpClient, private AutenticacaoService: AutenticacaoService) { }
 
-  getCampos(tabela: String): Observable<any> {
-    return this.http.post(`${api.urlConsulta}`, {consulta: tabela}, {headers: this.AutenticacaoService.getAutenticacao()});
+  public getCampoService(tabela: String): Observable<any> {
+    return this.http.post(`${api.urlCampos}`, {consulta: tabela}, {headers: this.AutenticacaoService.getAutenticacao()});
   }
 
-  getColunasCampos(): Array<PoTableColumn> {
+  public getColunasCampoService(): Array<PoTableColumn> {
     return [
       { property: 'id', label: 'Campo', type: 'string', width: '1px' },
       { property: 'nome', label: 'Nome', type: 'string', width: '1px' },
@@ -24,3 +23,4 @@ export class CamposService {
     ];
   }
 }
+ 

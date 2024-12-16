@@ -1,6 +1,6 @@
 import { provideRouter } from '@angular/router';
 
-import { routes } from './app.routes';
+import { routes } from '../app.routes';
 
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';

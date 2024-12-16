@@ -1,0 +1,15 @@
+<div class="po-md-12">
+  <h3>Tabelas</h3>
+  <po-table
+    [p-columns]="colunasTabelas"
+    [p-hide-table-search]="false"
+    [p-height]="700"
+    [p-items]="tabelas"
+    [p-selectable]="true"
+    [p-single-select]="true"
+    (p-selected)="atualizaTabelaSelecionada($event)"
+    [p-virtual-scroll]="false">
+  </po-table>
+</div>
+ 
+

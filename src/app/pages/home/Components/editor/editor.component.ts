@@ -20,7 +20,7 @@ export class EditorComponent {
     this.editorService.temaEditor$.subscribe((temaEditor) => (this.temaEditor = temaEditor));
   }
 
-  atualizarConsulta(novaConsulta: string): void {
+  public atualizarConsulta(novaConsulta: string): void {
     this.editorService.setConsulta(novaConsulta);
   }
-}
+} 

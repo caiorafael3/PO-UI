@@ -1,9 +1,9 @@
 /* Div de row do editor */
-::ng-deep .po-row{
+:host ::ng-deep .po-row{
     margin: 20px 0px 20px 0px;
 }
 
 /* Codigo dentro do editor */
-::ng-deep .monaco-editor{
+:host ::ng-deep .monaco-editor{
     padding-top: 10px;
-}
+} 

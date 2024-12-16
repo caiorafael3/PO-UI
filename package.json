@@ -20,6 +20,7 @@
     "@angular/router": "^17.3.0",
     "@po-ui/ng-code-editor": "^17.26.8",
     "@po-ui/ng-components": "^17.26.8",
+    "@po-ui/ng-storage": "^17.26.9",
     "@po-ui/ng-templates": "^17.26.8",
     "@totvs/po-theme": "^17.26.8",
     "@totvs/protheus-lib-core": "^17.3.3",

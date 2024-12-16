@@ -21,8 +21,8 @@ export class DadosComponent implements OnInit {
     this.dadosService.colunas$.subscribe((colunas) => (this.colunas = colunas));
   }
 
-  ngOnInit(): void {
-    // Subscreve-se aos observáveis para obter os dados e o colunas
+  public ngOnInit(): void {
+    // se inscreve aos observáveis para obter os dados e as colunas
     this.dadosService.dados$.subscribe((dados) => {
       this.dados = dados;
       if (dados.length > 0) {
@@ -39,3 +39,4 @@ export class DadosComponent implements OnInit {
     })
   }
 }
+ 

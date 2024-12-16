@@ -15,15 +15,16 @@ export class EditorService {
   public historico$ = this.historicoSubject.asObservable();
 
   // Metodo para adicionar novo valor
-  setConsulta(novaConsulta: string): void {
+  public setConsulta(novaConsulta: string): void {
     this.consultaSubject.next(novaConsulta);
   }
 
-  setTema(novoTema: string): void {
+  public setTema(novoTema: string): void {
     this.temaEditorSubject.next(novoTema);
   }
 
-  setHistorico(historico: Array<any>) {
+  public setHistorico(historico: Array<any>) {
     this.historicoSubject.next(historico)
   }
 }
+ 
