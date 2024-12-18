@@ -1,12 +1,22 @@
 <div class="po-md-12">
   <h3>Tabelas</h3>
+
+  <po-search
+      class="po-md-4"
+      [p-search-type]="'trigger'"
+      (p-change-model)="obtemValor($event)"
+      (keydown.enter)="filtrar()"
+      (click)="filtrar()"
+    >
+  </po-search>
+
   <po-table
     [p-columns]="colunasTabelas"
-    [p-hide-table-search]="false"
-    [p-height]="700"
+    [p-height]="550"
     [p-items]="tabelas"
     [p-selectable]="true"
     [p-single-select]="true"
+    [p-hide-columns-manager]="true"
     (p-selected)="atualizaTabelaSelecionada($event)"
     [p-virtual-scroll]="false">
   </po-table>

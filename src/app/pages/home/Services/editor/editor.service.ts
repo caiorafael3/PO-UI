@@ -11,7 +11,7 @@ export class EditorService {
   private temaEditorSubject = new BehaviorSubject<string>('vs');
   public temaEditor$ = this.temaEditorSubject.asObservable();
 
-  private historicoSubject = new BehaviorSubject<Array<any>>([])
+  private historicoSubject = new BehaviorSubject<Array<any>>([]);
   public historico$ = this.historicoSubject.asObservable();
 
   // Metodo para adicionar novo valor
@@ -24,7 +24,7 @@ export class EditorService {
   }
 
   public setHistorico(historico: Array<any>) {
-    this.historicoSubject.next(historico)
+    this.historicoSubject.next(historico);
   }
 }
  

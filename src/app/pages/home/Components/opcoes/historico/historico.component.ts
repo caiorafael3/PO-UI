@@ -17,9 +17,7 @@ export class HistoricoComponent implements OnInit{
   constructor(private editorService: EditorService){}
 
   public ngOnInit(): void {
-    this.editorService.historico$.subscribe((historico) => {
-      this.historico = historico;
-    })
+    this.editorService.historico$.subscribe((historico) => (this.historico = historico))
   }
 }
  

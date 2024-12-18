@@ -29,7 +29,13 @@
         <po-button
             class="po-md-1.5"
             p-label="Salvar consulta"
-            (p-click)="modalSalvar.open()">
+            (p-click)="abrirModal('salvar')">
+        </po-button>
+
+        <po-button
+            class="po-md-1.5"
+            p-label="Exportar dados"
+            (p-click)="abrirModal('exportar')">
         </po-button>
 
         <po-button 
@@ -37,19 +43,10 @@
             p-label="Histórico"
             (p-click)="modalHistorico.open()">
         </po-button>
-
-        <div class="tema" [ngClass]="opcaoTema ? 'dark' : 'light'">
-            <input type="checkbox" name="tema" class="checkbox" id="check" [(ngModel)]="opcaoTema" (ngModelChange)="mudarTema()">
-            <label class="label" for="check">
-                <i class="ph ph-sun-dim" id="sol"></i>
-                <i class="ph ph-moon"></i>
-                <div class="bola"></div>
-            </label>
-        </div>
     </div>
 </form>
 
-<po-modal #modalSalvar p-title="Salvar"> 
+<po-modal #modalDados p-title="Salvar"> 
     <po-input 
         name="titulo" 
         p-label="Titulo" 
@@ -67,11 +64,11 @@
         <po-button 
             p-kind="primary" 
             p-label="Salvar" 
-            (p-click)="salvar()">
+            (p-click)="executarAcaoDados()">
         </po-button>
     </po-modal-footer>
 </po-modal>
 
 <po-modal #modalHistorico p-title="Histórico"> 
     <app-historico></app-historico>
-</po-modal> 
+</po-modal>

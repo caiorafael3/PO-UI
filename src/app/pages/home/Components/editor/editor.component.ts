@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PoCodeEditorModule } from '@po-ui/ng-code-editor';
 import { EditorService } from '../../Services/editor/editor.service';
@@ -11,11 +11,13 @@ import { EditorService } from '../../Services/editor/editor.service';
   styleUrl: './editor.component.css',
 })
 
-export class EditorComponent {
+export class EditorComponent implements OnInit{
   public consulta: string = '';
   public temaEditor: string = '';
 
-  constructor(private editorService: EditorService) {
+  constructor(private editorService: EditorService) {}
+
+  public ngOnInit(): void {
     this.editorService.consulta$.subscribe((consulta) => (this.consulta = consulta));
     this.editorService.temaEditor$.subscribe((temaEditor) => (this.temaEditor = temaEditor));
   }

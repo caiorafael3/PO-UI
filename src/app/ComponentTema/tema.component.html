@@ -1,0 +1,9 @@
+<div class="tema" [ngClass]="opcaoTema ? 'dark' : 'light'">
+    <input type="checkbox" name="tema" class="checkbox" id="check" [(ngModel)]="opcaoTema" (ngModelChange)="mudarTema()">
+    <label class="label" for="check">
+      <i class="ph ph-sun-dim" id="sol"></i>
+      <i class="ph ph-moon"></i>
+      <div class="bola"></div>
+    </label>
+</div>
+  

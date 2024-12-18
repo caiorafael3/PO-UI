@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ProAppConfigService } from '@totvs/protheus-lib-core';
+import { FormsModule } from '@angular/forms';
+import { TemaComponent } from './ComponentTema/tema.component';
 
 import {
   PoMenuItem,
@@ -22,32 +24,33 @@ import {
     PoMenuModule,
     PoPageModule,
     HttpClientModule,
-    PoModule
+    PoModule,
+    FormsModule,
+    TemaComponent
 ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 
-export class AppComponent {
-  constructor(private propAppConfigService: ProAppConfigService, private router: Router){
-    if (!this.propAppConfigService.insideProtheus){
-      this.propAppConfigService.loadAppConfig()
-    }
+export class AppComponent implements OnInit {
+  public opcaoTema: boolean = false;
+
+  constructor(private propAppConfigService: ProAppConfigService, private router: Router) {}
+
+  ngOnInit(): void {
+    if (!this.propAppConfigService.insideProtheus) {
+      this.propAppConfigService.loadAppConfig();
+    } 
   }
 
   menus: Array<PoMenuItem> = [
     { label: 'Home', action: this.onClick.bind(this), icon: 'po-icon-home', shortLabel: 'Home' },
     { label: 'Tabelas', action: this.onTabelas.bind(this), icon: 'ph ph-database', shortLabel: 'Tabelas' },
-    { label: 'Minhas consultas', action: this.onMinhasConsultas.bind(this) , icon: 'ph ph-file-sql', shortLabel: 'Minhas consultas'},
     { label: 'Sair', action: this.closeApp.bind(this), icon:'po-icon-exit', shortLabel: 'sair'},
   ];
   
   private onClick() : void {
     this.router.navigate(['/', 'home']);
-  }
-
-  private onMinhasConsultas() : void {
-    this.router.navigate(['/', 'minhasConsultas']);
   }
 
   private onTabelas() : void {
@@ -57,8 +60,6 @@ export class AppComponent {
   private closeApp() {
     if (this.propAppConfigService.insideProtheus()){
       this.propAppConfigService.callAppClose();
-    } else {
-      alert('O app não está sendo executado dentro do Protheus.')
     }
   }
 }

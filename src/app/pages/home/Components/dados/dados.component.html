@@ -3,7 +3,14 @@
         <po-loading-overlay></po-loading-overlay>
     </div>
 } @else {
-    <po-table [p-items]="dados" [p-columns]="colunas"></po-table>
+    @if(retornouErro){
+        <po-dynamic-view [p-fields]="[{ property: 'Erro' }]" [p-value]="{ Erro: retornouErro }"> </po-dynamic-view>
+    } @else {
+        <po-table 
+            [p-items]="dados" 
+            [p-columns]="colunas">
+        </po-table>
+    }
 }
 
 

@@ -6,13 +6,11 @@
     [p-menus]="menus" >
     <div *p-menu-header-template class="po-p-2 po-font-title">
       <p>Bem vindo</p>
-      <p>
-        <b> Caio Rafael </b>
-      </p>
     </div>
   </po-menu>
 
   <po-page-default p-title="Editor SQL">
+    <app-tema (temaAlterado)="opcaoTema = $event"></app-tema>
     <router-outlet></router-outlet>
   </po-page-default>
 </div>

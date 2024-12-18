@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-protheus-app": {
+    "editor-sql": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-protheus-app",
+            "outputPath": "dist/editor-sql",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "my-protheus-app:build:production"
+              "buildTarget": "editor-sql:build:production"
             },
             "development": {
-              "buildTarget": "my-protheus-app:build:development"
+              "buildTarget": "editor-sql:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "my-protheus-app:build"
+            "buildTarget": "editor-sql:build"
           }
         },
         "test": {

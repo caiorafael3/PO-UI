@@ -5,3 +5,8 @@
 :host ::ng-deep .po-table .po-table-column-selectable{
     display: none;
 }
+
+po-search{
+    position: relative;
+    padding: 8px 0px 8px 0px;
+}

@@ -12,14 +12,15 @@ export class CamposService {
   constructor(private http: HttpClient, private AutenticacaoService: AutenticacaoService) { }
 
   public getCampoService(tabela: String): Observable<any> {
-    return this.http.post(`${api.urlCampos}`, {consulta: tabela}, {headers: this.AutenticacaoService.getAutenticacao()});
+    const tabelaSelecionada = tabela.substring(0,3);
+    return this.http.post(`${api.urlCampos}`, {tabela: tabelaSelecionada}, {headers: this.AutenticacaoService.getAutenticacao()});
   }
 
   public getColunasCampoService(): Array<PoTableColumn> {
     return [
-      { property: 'id', label: 'Campo', type: 'string', width: '1px' },
-      { property: 'nome', label: 'Nome', type: 'string', width: '1px' },
-      { property: 'descricao', label: 'Descrição', type: 'string', width: '1px' },
+      { property: 'campo', label: 'Campo', type: 'string', width: '30px' },
+      { property: 'tipo', label: 'Tipo', type: 'string', width: '5px' },
+      { property: 'descricao', label: 'Descrição', type: 'string', width: '100px' },
     ];
   }
 }

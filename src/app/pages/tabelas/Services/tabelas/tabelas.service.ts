@@ -10,12 +10,12 @@ import { PoTableColumn } from '@po-ui/ng-components';
 })
 export class tabelaService {
   private nomeTabelaSelecionadaSubject = new BehaviorSubject<string>('')
-  public nomeTabelaSelecionada$ = this.nomeTabelaSelecionadaSubject.asObservable()
+  public nomeTabelaSelecionada$ = this.nomeTabelaSelecionadaSubject.asObservable();
 
   constructor(private http: HttpClient, private AutenticacaoService: AutenticacaoService) {}
 
-  public getTabelaService(): Observable<any> {
-    return this.http.get(`${api.urlTabelas}`, {headers: this.AutenticacaoService.getAutenticacao()});
+  public getTabelaService(busca : string): Observable<any> {
+    return this.http.post(`${api.urlTabelas}`, {busca : busca } , {headers: this.AutenticacaoService.getAutenticacao()});
   }
 
   public getColunasTabelaService(): Array<PoTableColumn> {
@@ -25,7 +25,7 @@ export class tabelaService {
     ];
   }
 
-  public setTabelaSelecionadaSubject(nomeTabela : string) : void{
-    this.nomeTabelaSelecionadaSubject.next(nomeTabela)    
+  public setTabelaSelecionada(nomeTabela : string) : void{
+    this.nomeTabelaSelecionadaSubject.next(nomeTabela);
   }
 } 
