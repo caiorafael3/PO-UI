@@ -25,6 +25,7 @@ import {
 export class OpcoesComponent implements OnInit{ 
   public titulo: string = ''; 
   private consulta: string = '';
+  private requisicao: {consulta: string, posicao: Number} = {consulta: '', posicao: 0}
   private historico: Array<any> = [];
   private dados: Array<any> = [];
   private tipoAcao: 'salvar' | 'exportar' = 'salvar';
@@ -52,8 +53,11 @@ export class OpcoesComponent implements OnInit{
   public executar(): void {
     if (this.consulta) {     
       this.historico.push({ "consultas" : this.consulta});
-      this.consultaService.setConsulta(this.consulta).subscribe({
+      this.requisicao.consulta = this.consulta
+      this.requisicao.posicao = 0
+      this.consultaService.setConsulta(this.requisicao).subscribe({
         next: (resposta) => {
+          console.log(resposta.dados);
           this.dados = resposta.dados;
           const colunas = Object.keys(this.dados[0]).map((key) => ({
             label: key,
