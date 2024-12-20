@@ -7,11 +7,11 @@
         <po-dynamic-view [p-fields]="[{ property: 'Erro' }]" [p-value]="{ Erro: retornouErro }"> </po-dynamic-view>
     } @else {
         <po-table 
-            [p-items]="itens" 
+            [p-items]="dadosExibidos" 
             [p-columns]="colunas"
             [p-infinite-scroll]="true"
             [p-infinite-scroll-distance]="50"
-            [p-show-more-disabled]="exibeMais"
+            [p-show-more-disabled]="desativarCarregarMais"
             (p-show-more)="carregarMais()">
         </po-table>
     }

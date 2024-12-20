@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { DadosService } from '../../Services/dados/dados.service';
 import { PoModule } from '@po-ui/ng-components';
 import { PoPageDynamicTableModule } from '@po-ui/ng-templates';
+import { ConsultaService } from '../../Services/consulta/consulta.service';
 
 @Component({
   selector: 'app-dados',
@@ -13,40 +14,54 @@ import { PoPageDynamicTableModule } from '@po-ui/ng-templates';
   styleUrl: './dados.component.css',
 })
 export class DadosComponent implements OnInit {
-  public carregando: boolean = false;
   public retornouErro: string = '';
-  public dados: Array<any> = [];
-  public itens: any[] = []; 
-  public qtdPorPagina = 5; 
-  public exibeMais = false;
+  public carregando: boolean = false;
+  public desativarCarregarMais: boolean = false;
+  public clicouExecutar: boolean = false;
+  public dadosExibidos: any[] = []; 
   public colunas: Array<{ label: string; property: string }> = [];
+  private dados: Array<any> = [];
+  private posicao: number = 0;
 
-  constructor(private dadosService: DadosService) {}
+  constructor(private dadosService: DadosService, private consultaService: ConsultaService) {}
 
   public ngOnInit(): void {
     // Inscreve-se nos observáveis para obter os dados e as colunas
+    this.consultaService.clicouExecutar$.subscribe((clicou) => (this.clicouExecutar = clicou))
     this.dadosService.colunas$.subscribe((colunas) => (this.colunas = colunas));
     this.dadosService.carregando$.subscribe((carregando) => (this.carregando = carregando));
     this.dadosService.retornouErro$.subscribe((retornouErro) => (this.retornouErro = retornouErro));
-
     this.dadosService.dados$.subscribe((dados) => {
       this.dados = dados;
-      if (dados.length > 0) {
-        this.carregarMais();
-        this.dadosService.setCarregando(false);
-      }
+      this.atualizaDados()
     });
   }
 
-  // Metodo que carrega mais dados por pagina
+  // Metodo que carrega mais dados 
   public carregarMais(): void {
-    const inicio = this.itens.length; 
-    const fim = inicio + this.qtdPorPagina;
+    this.posicao += 20;
+    this.consultaService.executarConsulta(this.posicao);
+  }
 
-    // Adiciona os próximos dados na lista de itens (paginação)
-    this.itens = [...this.itens, ...this.dados.slice(inicio, fim)];
+  private atualizaDados(): void {
+    if (this.dados.length == 0){
+      this.limparDados()
+    }
 
-    // Verifica se todos os dados foram carregados, para desabilitar o botao de "Carregar mais"
-    this.exibeMais = this.itens.length >= this.dados.length;
+    if (this.dados.length < 20 && this.dadosExibidos.length > 0){
+      this.desativarCarregarMais = true
+    }
+
+    if (this.clicouExecutar){
+      this.dadosExibidos = []
+      this.consultaService.setClicouExecutar(false)
+    }
+
+    this.dadosExibidos = [...this.dadosExibidos, ...this.dados];    
+  }
+
+  private limparDados(): void {
+    this.dadosExibidos = []
+    this.colunas = []
   }
 }

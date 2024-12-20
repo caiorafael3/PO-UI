@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditorService } from '../../Services/editor/editor.service';
-import { DadosService } from '../../Services/dados/dados.service';
-import { ConsultaService } from '../../Services/consulta/consulta.service';
 import { HistoricoComponent } from './historico/historico.component';
 import * as xlsx from 'xlsx'
 
@@ -13,6 +11,7 @@ import {
   PoModalComponent,
   PoNotificationService
 } from '@po-ui/ng-components';
+import { ConsultaService } from '../../Services/consulta/consulta.service';
 
 @Component({
   selector: 'app-opcoes',
@@ -25,8 +24,6 @@ import {
 export class OpcoesComponent implements OnInit{ 
   public titulo: string = ''; 
   private consulta: string = '';
-  private requisicao: {consulta: string, posicao: Number} = {consulta: '', posicao: 0}
-  private historico: Array<any> = [];
   private dados: Array<any> = [];
   private tipoAcao: 'salvar' | 'exportar' = 'salvar';
   
@@ -34,9 +31,8 @@ export class OpcoesComponent implements OnInit{
 
   constructor(
     private editorService: EditorService, 
-    private consultaService: ConsultaService, 
-    private dadosService : DadosService, 
-    private poNotification : PoNotificationService
+    private poNotification: PoNotificationService,
+    private consultaService: ConsultaService
   ) {}
 
   public ngOnInit(): void {
@@ -51,30 +47,8 @@ export class OpcoesComponent implements OnInit{
 
   // Metodo para executar o consulta SQL do editor
   public executar(): void {
-    if (this.consulta) {     
-      this.historico.push({ "consultas" : this.consulta});
-      this.requisicao.consulta = this.consulta
-      this.requisicao.posicao = 0
-      this.consultaService.setConsulta(this.requisicao).subscribe({
-        next: (resposta) => {
-          console.log(resposta.dados);
-          this.dados = resposta.dados;
-          const colunas = Object.keys(this.dados[0]).map((key) => ({
-            label: key,
-            property: key
-          }))
-          this.dadosService.setDados(this.dados);
-          this.dadosService.setColunas(colunas);          
-          this.dadosService.setRetornouErro('')
-          this.editorService.setHistorico(this.historico);
-        },
-        error: (error) => {
-          this.dadosService.setRetornouErro(error.error.errorMessage)
-          this.dadosService.setCarregando(false)
-          return this.poNotification['error'](`Ocorreu um erro ao exibir resultado da consulta.`);
-        }
-      })
-    }
+    this.consultaService.setClicouExecutar(true)
+    this.consultaService.executarConsulta(0)
   }
   
   // Metodo para verificar o arquivo selecionado
@@ -98,7 +72,7 @@ export class OpcoesComponent implements OnInit{
   }
 
   // Metodo para fechar o modalDados
-  public closeModal() {
+  public fecharModal() {
     this.modalDados.close();
     this.titulo = ''
   }
@@ -113,7 +87,7 @@ export class OpcoesComponent implements OnInit{
         this.editorService.setConsulta(event.target.result)
       };
     } catch (error) {
-      return this.poNotification['error'](`Ocorreu um erro ao ler o arquivo.`);
+      this.poNotification['error'](`Ocorreu um erro ao ler o arquivo.`);
     }
   }
 
@@ -122,13 +96,12 @@ export class OpcoesComponent implements OnInit{
     const mensagemAlerta = this.validarDados();
 
     if (mensagemAlerta) {
-      this.poNotification['information'](mensagemAlerta);
-      return;
+      return this.poNotification['information'](mensagemAlerta);
     }
 
     this.salvarArquivo(this.consulta, this.titulo);
-    this.closeModal()
-    return this.poNotification['success']('Arquivo salvo com sucesso.');
+    this.fecharModal()
+    this.poNotification['success']('Arquivo salvo com sucesso.');
   }
 
   // Metodo para verificar se todas informação necessárias estão preenchidas
@@ -167,10 +140,10 @@ export class OpcoesComponent implements OnInit{
   
       xlsx.writeFile(wb, titulo); // criando e salvando o arquivo
   
-      this.closeModal()
-      return this.poNotification['success']('Dados exportados com sucesso.');
+      this.fecharModal()
+      this.poNotification['success']('Dados exportados com sucesso.');
     } 
 
-    return this.poNotification['information']("Não há dados para serem exportados.");
+    this.poNotification['information']("Não há dados para serem exportados.");
   }
 }
