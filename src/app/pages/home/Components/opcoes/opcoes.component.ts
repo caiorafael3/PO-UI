@@ -12,6 +12,7 @@ import {
   PoNotificationService
 } from '@po-ui/ng-components';
 import { ConsultaService } from '../../Services/consulta/consulta.service';
+import { DadosService } from '../../Services/dados/dados.service';
 
 @Component({
   selector: 'app-opcoes',
@@ -32,12 +33,14 @@ export class OpcoesComponent implements OnInit{
   constructor(
     private editorService: EditorService, 
     private poNotification: PoNotificationService,
-    private consultaService: ConsultaService
+    private consultaService: ConsultaService,
+    private dadoService: DadosService
   ) {}
 
   public ngOnInit(): void {
     // Se inscreve para observar mudanças dos valores no código e tema
     this.editorService.consulta$.subscribe((consulta) => (this.consulta = consulta));
+    this.dadoService.dados$.subscribe((dados) => (this.dados = dados))
   }
 
   // Metodo para limpar o editor
@@ -60,7 +63,7 @@ export class OpcoesComponent implements OnInit{
     }
   }
 
-  // Metodo para executar ação de salvar ou exportar
+  // Metodo para verificar qual ação ele irá executar, de salvar ou exportar
   public executarAcaoDados(): void {
     this.tipoAcao === 'salvar' ? this.salvar() : this.exportarDados()
   }
@@ -87,7 +90,7 @@ export class OpcoesComponent implements OnInit{
         this.editorService.setConsulta(event.target.result)
       };
     } catch (error) {
-      this.poNotification['error'](`Ocorreu um erro ao ler o arquivo.`);
+      return this.poNotification['error'](`Ocorreu um erro ao ler o arquivo.`);
     }
   }
 
@@ -101,7 +104,7 @@ export class OpcoesComponent implements OnInit{
 
     this.salvarArquivo(this.consulta, this.titulo);
     this.fecharModal()
-    this.poNotification['success']('Arquivo salvo com sucesso.');
+    return this.poNotification['success']('Arquivo salvo com sucesso.');
   }
 
   // Metodo para verificar se todas informação necessárias estão preenchidas
@@ -132,7 +135,7 @@ export class OpcoesComponent implements OnInit{
 
   // Metodo para exportar o resultado da consulta
   private exportarDados(): void { 
-    if(this.dados.length > 0) {
+    if(this.dados.length) {
       const titulo = this.titulo ? this.titulo + '.xlsx' : 'dados.xlsx'
       const ws: xlsx.WorkSheet = xlsx.utils.json_to_sheet(this.dados); // Convertendo dados de Json para a planilha
       const wb: xlsx.WorkBook = xlsx.utils.book_new(); // Criando uma area de trabalho
@@ -141,9 +144,9 @@ export class OpcoesComponent implements OnInit{
       xlsx.writeFile(wb, titulo); // criando e salvando o arquivo
   
       this.fecharModal()
-      this.poNotification['success']('Dados exportados com sucesso.');
+      return this.poNotification['success']('Dados exportados com sucesso.');
     } 
 
-    this.poNotification['information']("Não há dados para serem exportados.");
+    return this.poNotification['information']("Não há dados para serem exportados.");
   }
 }

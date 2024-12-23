@@ -43,23 +43,22 @@ export class DadosComponent implements OnInit {
     this.consultaService.executarConsulta(this.posicao);
   }
 
+  // Metodo para atualizar a lista de dados exibidos
   private atualizaDados(): void {
-    if (this.dados.length == 0){
-      this.limparDados()
-    }
-
-    if (this.dados.length < 20 && this.dadosExibidos.length > 0){
-      this.desativarCarregarMais = true
+    if (!this.dados.length){
+      return this.limparDados();
     }
 
     if (this.clicouExecutar){
       this.dadosExibidos = []
       this.consultaService.setClicouExecutar(false)
     }
-
+    
     this.dadosExibidos = [...this.dadosExibidos, ...this.dados];    
+    this.desativarCarregarMais = this.dados.length < 20 ;
   }
 
+  // Metodo para limpar os dados exibidos
   private limparDados(): void {
     this.dadosExibidos = []
     this.colunas = []

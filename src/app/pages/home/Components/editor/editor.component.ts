@@ -22,6 +22,7 @@ export class EditorComponent implements OnInit{
     this.editorService.temaEditor$.subscribe((temaEditor) => (this.temaEditor = temaEditor));
   }
 
+  // Metodo para atualizar a consulta toda vez q ela for alterada 
   public atualizarConsulta(novaConsulta: string): void {
     this.editorService.setConsulta(novaConsulta);
   }

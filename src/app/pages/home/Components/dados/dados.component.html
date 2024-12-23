@@ -11,7 +11,7 @@
             [p-columns]="colunas"
             [p-infinite-scroll]="true"
             [p-infinite-scroll-distance]="50"
-            [p-show-more-disabled]="desativarCarregarMais"
+            [p-show-more-disabled]="!dadosExibidos.length || desativarCarregarMais"
             (p-show-more)="carregarMais()">
         </po-table>
     }

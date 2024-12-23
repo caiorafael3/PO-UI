@@ -31,6 +31,7 @@ export class ConsultaService {
     return this.http.post(`${api.urlConsulta}`, {consulta: consulta.consulta, posicao: consulta.posicao}, {headers: this.autenticacaoService.getAutenticacao()});
   }
 
+  // Metodo para informar que foi clicado no botao executar
   public setClicouExecutar(clicou: boolean): void{
     this.clicouExecutarSubject.next(clicou);
   }
@@ -38,14 +39,29 @@ export class ConsultaService {
   // Metodo para executar a consulta informada
   public executarConsulta(posicao: number): void { 
     this.editorService.consulta$.subscribe((consulta) => (this.consulta = consulta));   
-    if (this.consulta) {     
-      this.historico.push({ "consultas" : this.consulta});
+    if (this.consulta) {  
+      this.verificaHistorico(this.consulta)  
       this.requisicao.consulta = this.consulta
       this.requisicao.posicao = posicao
       this.setConsulta(this.requisicao).subscribe({
         next: resposta => this.tratarSucesso(resposta),
         error: error => this.tratarErro(error)
       })
+    }
+  }
+
+  // Metodo para verificar os itens no historico e adicionar apenas os que não estiverem 
+  private verificaHistorico(consulta: string): void {
+    let adiciona = true
+
+    this.historico.map(item => {
+      if (item.consultas == consulta){
+        adiciona = false
+      }
+    })
+
+    if (adiciona){
+      this.historico.push({ "consultas" : consulta});
     }
   }
 
@@ -74,7 +90,7 @@ export class ConsultaService {
   private tratarErro(error: any): void {
     this.dadosService.setRetornouErro(error.error.errorMessage)
     this.dadosService.setCarregando(false)
-    this.poNotification['error'](`Ocorreu um erro ao exibir resultado da consulta.`);
+    return this.poNotification['error'](`Ocorreu um erro ao exibir resultado da consulta.`);
   }
 }
  

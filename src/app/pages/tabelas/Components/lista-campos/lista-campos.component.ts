@@ -32,6 +32,7 @@ export class ListaCamposComponent  implements OnInit{
     this.getColunasCampos();
   }
 
+  // Metodo para buscar os campos da tabela selecionada
   public getCamposTabela(): void {    
     this.camposService.getCampoService(this.nomeTabelaSelecionada).subscribe({
       next: (res) => {
@@ -43,6 +44,7 @@ export class ListaCamposComponent  implements OnInit{
     });
   }
 
+  // Metodo para buscar as colunas para exibição
   private getColunasCampos(): void {
     this.colunasCampos = this.camposService.getColunasCampoService();
   }
