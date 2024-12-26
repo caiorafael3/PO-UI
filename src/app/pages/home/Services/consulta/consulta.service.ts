@@ -88,6 +88,7 @@ export class ConsultaService {
 
   // Metodo para tratar com o erro ao buscar os dados da consulta
   private tratarErro(error: any): void {
+    this.dadosService.setDados([]);
     this.dadosService.setRetornouErro(error.error.errorMessage)
     this.dadosService.setCarregando(false)
     return this.poNotification['error'](`Ocorreu um erro ao exibir resultado da consulta.`);

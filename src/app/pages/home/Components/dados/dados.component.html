@@ -11,6 +11,8 @@
             [p-columns]="colunas"
             [p-infinite-scroll]="true"
             [p-infinite-scroll-distance]="50"
+            [p-virtual-scroll]="true"
+            [p-height]="500"
             [p-show-more-disabled]="!dadosExibidos.length || desativarCarregarMais"
             (p-show-more)="carregarMais()">
         </po-table>
