@@ -1,5 +1,5 @@
-let usuario = 'caio.rafael'
-let senha = 'caiocaua8'
+let usuario = 'seuUsuario'
+let senha = 'suaSenha'
 
 export const autenticacao = {
     usuario: usuario,
